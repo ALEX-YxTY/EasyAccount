@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/menu_bg_main_activity_shape"
+    android:paddingTop="30dp"
+    android:paddingBottom="15dp"
+    >
+
+    <RelativeLayout
+        android:id="@+id/rl_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/head_shape"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/head_icon"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/about"
+        android:layout_below="@id/rl_icon"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="20dp"
+        android:text="关于"
+        android:textSize="22sp"
+        android:background="@drawable/menu_item_selector"
+        android:clickable="true"/>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/back_arrow"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:id="@+id/iv_arrow_back"/>
+
+
+
+
+
+
+</RelativeLayout>

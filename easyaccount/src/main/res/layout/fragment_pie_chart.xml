@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <lecho.lib.hellocharts.view.PieChartView
+        android:id="@+id/pie_chart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="10dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:id="@+id/ll_click"
+        android:clickable="true"
+        android:background="@drawable/ll_click_bg_select"
+        >
+        <LinearLayout
+            android:id="@+id/ll_tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:id="@+id/tv_subtype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginRight="10dp"
+                />
+            <TextView
+                android:id="@+id/tv_percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_toRightOf="@id/tv_subtype"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="lsdfkjl;sg"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/ll_tv_content"
+            android:layout_marginTop="5dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/arrow_next"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>
+</LinearLayout>

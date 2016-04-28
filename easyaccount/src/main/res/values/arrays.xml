@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--EXPENDITURE_TYPE-->
+    <string-array name="expenditure_type">
+        <item>食</item>
+        <item>衣</item>
+        <item>住</item>
+        <item>行</item>
+        <item>物</item>
+        <item>通讯</item>
+        <item>娱乐</item>
+        <item>学习</item>
+        <item>医疗健康</item>
+        <item>人情往来</item>
+        <item>金融财务</item>
+        <item>其他</item>
+    </string-array>
+    <!--EXPENDITURE_SUBTYPE_食-->
+    <string-array name="expenditure_type_1">
+        <item>早午晚餐</item>
+        <item>水果零食</item>
+        <item>烟酒茶</item>
+        <item>聚餐消费</item>
+    </string-array>
+    <!--EXPENDITURE_SUBTYPE_衣-->
+    <string-array name="expenditure_type_2">
+        <item>衣服裤子</item>
+        <item>鞋帽包包</item>
+        <item>化妆饰品</item>
+    </string-array>
+    <!--EXPENDITURE_SUBTYPE_住-->
+    <string-array name="expenditure_type_3">
+        <item>日常用品</item>
+        <item>水电煤气</item>
+        <item>房租</item>
+        <item>物业管理</item>
+        <item>维修保养</item>
+        <item>家居装修</item>
+    </string-array>
+    <!--EXPENDITURE_SUBTYPE_行-->
+    <string-array name="expenditure_type_4">
+        <item>公共交通</item>
+        <item>打车出租</item>
+        <item>私家车费用</item>
+    </string-array>
+    <!--EXPENDITURE_SUBTYPE_物-->
+    <string-array name="expenditure_type_5">
+        <item>家具家电</item>
+        <item>电子设备</item>
+        <item>固定资产</item>
+    </string-array>
+    <!--EXPENDITURE_SUBTYPE_通讯-->
+    <string-array name="expenditure_type_6">
+        <item>话费</item>
+        <item>网费</item>
+        <item>快递物流</item>
+    </string-array>
+    <!--EXPENDITURE_SUBTYPE_娱乐-->
+    <string-array name="expenditure_type_7">
+        <item>运动健身</item>
+        <item>腐败聚会</item>
+        <item>电影游戏</item>
+        <item>宠物消费</item>
+        <item>旅游度假</item>
+        <item>兴趣爱好</item>
+    </string-array>
+    <!--EXPENDITURE_SUBTYPE_学习-->
+    <string-array name="expenditure_type_8">
+        <item>书包杂志</item>
+        <item>培训进修</item>
+    </string-array>
+    <!--EXPENDITURE_SUBTYPE_医疗健康-->
+    <string-array name="expenditure_type_9">
+        <item>医药费</item>
+        <item>美容费</item>
+        <item>保健消费</item>
+    </string-array>
+    <!--EXPENDITURE_SUBTYPE_人情往来-->
+    <string-array name="expenditure_type_10">
+        <item>请客送礼</item>
+        <item>孝敬长辈</item>
+        <item>慈善捐助</item>
+    </string-array>
+    <!--EXPENDITURE_SUBTYPE_金融财务-->
+    <string-array name="expenditure_type_11">
+        <item>按揭还款</item>
+        <item>保单费用</item>
+        <item>赔偿罚款</item>
+        <item>还人钱物</item>
+    </string-array>
+    <!--EXPENDITURE_SUBTYPE_其他-->
+    <string-array name="expenditure_type_12">
+        <item>其他开销</item>
+    </string-array>
+    <!--INCOME_TYPE-->
+    <string-array name="income_type">
+        <item>职业收入</item>
+        <item>其他</item>
+    </string-array>
+    <!--INCOME_TYPE_职业-->
+    <string-array name="income_type_1">
+        <item>工资</item>
+        <item>奖金</item>
+        <item>加班</item>
+        <item>兼职</item>
+        <item>福利补贴</item>
+    </string-array>
+    <!--INCOME_TYPE_其他-->
+    <string-array name="income_type_2">
+        <item>投资收益</item>
+        <item>经营收入</item>
+        <item>中奖</item>
+        <item>利息</item>
+        <item>礼金收入</item>
+        <item>其他</item>
+    </string-array>
+    <!--ACCOUNT_TYPE_账户类型-->
+    <string-array name="account_type">
+        <item>现金账户</item>
+        <item>金融账户</item>
+        <item>负债账户</item>
+        <item>债券账户</item>
+        <item>投资账户</item>
+    </string-array>
+    <!--ACCOUNT_TYPE_账户信息-->
+    <string-array name="account_1">
+        <item>现金口袋</item>
+    </string-array>
+    <!--ACCOUNT_TYPE_账户信息-->
+    <string-array name="account_2">
+        <item>银行卡</item>
+    </string-array>
+    <!--ACCOUNT_TYPE_账户信息-->
+    <string-array name="account_3">
+        <item>贷款</item>
+    </string-array>
+    <!--ACCOUNT_TYPE_账户信息-->
+    <string-array name="account_4">
+        <item>公司报销</item>
+        <item>应收款项</item>
+    </string-array>
+    <!--ACCOUNT_TYPE_账户信息-->
+    <string-array name="account_5">
+        <item>股票账户</item>
+        <item>基金账户</item>
+        <item>余额宝</item>
+    </string-array>
+</resources>

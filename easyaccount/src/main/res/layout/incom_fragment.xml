@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--Fee条目-->
+        <LinearLayout
+            android:id="@+id/ll_fee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ll_click_bg_select"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="0.00"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                style="@style/Text_income_frag"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#2000" />
+        </LinearLayout>
+        <!--分类条目-->
+        <LinearLayout
+            android:id="@+id/ll_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@drawable/ll_click_bg_select"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="分类"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp"
+                style="@style/Text_subtitle_frag"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp">
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="职业收入"
+                    android:layout_marginRight="15dp"
+                    style="@style/Text_title_frag"/>
+
+                <ImageView
+                    android:layout_width="9dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/icon_right_arrow_small"
+                    android:layout_marginRight="15dp"
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:id="@+id/tv_subtype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Text_title_frag"
+                    android:text="工资收入"/>
+            </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#2000" />
+        </LinearLayout>
+        <!--账户条目-->
+        <LinearLayout
+            android:id="@+id/ll_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@drawable/ll_click_bg_select"
+
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="账户"
+                style="@style/Text_subtitle_frag"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp"/>
+            <TextView
+                android:id="@+id/tv_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="现金账户"
+                style="@style/Text_title_frag"
+                android:paddingBottom="10dp"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#2000" />
+        </LinearLayout>
+
+        <!--项目条目-->
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_pro"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:background="@drawable/ll_click_bg_select"
+            >
+
+            <TextView
+                android:id="@+id/tv_proTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="项目"
+                android:paddingLeft="5dp"
+                style="@style/Text_subtitle_frag"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp"/>
+            <TextView
+                android:id="@+id/tv_pro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_proTitle"
+                android:text="无项目"
+                android:paddingLeft="5dp"
+                style="@style/Text_title_frag"
+                android:paddingBottom="10dp"/>
+            <ImageView
+                android:layout_below="@id/tv_pro"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#2000" />
+            <ImageView
+                android:id="@+id/pro_cancel"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@drawable/icon_dialog_close"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"/>
+
+        </RelativeLayout>
+        <!--desc条目-->
+        <LinearLayout
+            android:id="@+id/ll_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@drawable/ll_click_bg_select"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="备注"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp"
+                style="@style/Text_subtitle_frag"
+                />
+            <EditText
+                android:id="@+id/et_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Text_title_frag"
+                android:hint="备注"
+                android:background="@null"
+                android:layout_marginBottom="10dp"
+                android:paddingBottom="5dp"
+                android:inputType="text"
+                android:textCursorDrawable="@drawable/cursor_drawable"
+                />
+
+        </LinearLayout>
+
+        <!--选项按钮-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp">
+
+            <Button
+                android:id="@+id/bt_date"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@drawable/ll_click_bg_select"
+                android:text="今天 4月5日"
+                style="@style/Text_subtitle_frag"
+                android:layout_marginRight="10dp"/>
+
+            <Button
+                android:id="@+id/bt_project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="项目"
+                style="@style/Text_subtitle_frag"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

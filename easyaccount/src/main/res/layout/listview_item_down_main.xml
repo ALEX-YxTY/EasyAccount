@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="7dp">
+
+    <FrameLayout
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <TextView
+            android:id="@+id/tv_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:textColor="#4000"/>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="center_vertical">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Text_list_down_title_main"
+            android:layout_marginTop="3dp"/>
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Text_list_down_subtitle_main"
+            android:layout_below="@id/tv_title"/>
+        <TextView
+            android:id="@+id/tv_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            style="@style/Text_list_down_income_main"/>
+        <TextView
+            android:id="@+id/tv_expenditure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_income"
+            style="@style/Text_list_down_expenditure_main"
+            android:layout_marginTop="5dp"/>
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="12dp"
+        android:layout_height="22dp"
+        android:background="@drawable/icon_right_list_arrow"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="center_vertical"/>
+    
+</LinearLayout>

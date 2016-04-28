@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+        <ImageView
+            android:id="@+id/iv_edit"
+            android:layout_width="75dp"
+            android:layout_height="45dp"
+            android:background="@drawable/wheel_btn_shape"
+            android:src="@drawable/wheel_tab_edit_bg"
+            />
+        <ImageView
+            android:id="@+id/iv_add"
+            android:layout_width="75dp"
+            android:layout_height="45dp"
+            android:background="@drawable/wheel_btn_shape"
+            android:src="@drawable/wheel_tab_add_bg"
+            android:layout_toRightOf="@id/iv_edit"
+            android:layout_marginLeft="1dp"
+            />
+        <ImageView
+            android:id="@+id/iv_ok"
+            android:layout_width="75dp"
+            android:layout_height="45dp"
+            android:background="@drawable/wheel_btn_shape"
+            android:src="@drawable/wheel_tab_ok_arrow_btn"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#fff">
+
+        <com.exercise.yxty.easyaccount.view.WheelView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/wlv_main"
+            style="@style/WheelView_style"/>
+
+    </LinearLayout>
+
+</LinearLayout>

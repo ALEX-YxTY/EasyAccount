@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:paddingTop="10dp"
+    android:gravity="center_vertical"
+    android:background="#f3f3ff">
+
+    <TextView
+        android:id="@+id/tv_type"
+        style="@style/Text_title_frag"
+        android:text="衣服饰品"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:textSize="18sp"/>
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_below="@id/tv_type"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/progress_bg_shape"
+        >
+        <ImageView
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/progress_up_shape_nomal"/>
+
+    </FrameLayout>
+    <TextView
+        android:id="@+id/tv_budget"
+        android:layout_below="@id/frame"
+        android:layout_alignLeft="@id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Text_subtitle_frag"
+        android:text="预算：100.00"
+        android:textSize="12sp"
+        />
+    <TextView
+        android:id="@+id/budget_remain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="0.00"
+        style="@style/Text_title_frag"
+        android:layout_alignBottom="@id/tv_type"
+        />
+
+    <TextView
+        android:layout_toLeftOf="@id/budget_remain"
+        android:layout_alignBottom="@id/budget_remain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Text_subtitle_frag"
+        android:text="余额 "
+        android:textSize="12sp"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2000"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"/>
+
+</RelativeLayout>

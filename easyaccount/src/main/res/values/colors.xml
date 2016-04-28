@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="income">#8B0000</color>
+    <color name="expend">#006400</color>
+    <color name="progress_red">#FF3030</color>
+    <color name="progress_orange">#FFD700</color>
+    <color name="keyPad_default_orange">#FF7F24</color>
+    <color name="budget_remain_text">#b000</color>
+    <color name="kayPad_default_color">#7A7A7A</color>
+
+</resources>

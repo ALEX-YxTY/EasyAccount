@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <lecho.lib.hellocharts.view.LineChartView
+            android:id="@+id/line_chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/graphic_symbol_bg_shape"
+            android:padding="10dp">
+            <ImageView
+                android:id="@+id/iv_expend"
+                android:layout_width="20dp"
+                android:layout_height="15dp" />
+            <ImageView
+                android:id="@+id/iv_income"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_below="@id/iv_expend"
+                android:layout_marginTop="8dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="支出"
+                style="@style/Text_title_frag"
+                android:textSize="14sp"
+                android:layout_toRightOf="@id/iv_expend"
+                android:layout_marginLeft="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收入"
+                style="@style/Text_title_frag"
+                android:textSize="14sp"
+                android:layout_toRightOf="@id/iv_income"
+                android:layout_alignBottom="@id/iv_income"
+                android:layout_marginLeft="5dp"/>
+
+        </RelativeLayout>
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:id="@+id/ll_click"
+        android:clickable="true"
+        android:background="@drawable/ll_click_bg_select"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/ll_tv_content">
+
+            <TextView
+                android:id="@+id/tv_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="mimimimi"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_in_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="mimimimi"
+                />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="huhuhuhuhuh"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/ll_tv_content"
+            android:layout_marginTop="5dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/arrow_next"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>
+</LinearLayout>

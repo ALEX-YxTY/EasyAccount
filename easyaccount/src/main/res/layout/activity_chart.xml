@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.exercise.yxty.easyaccount.Activity.ChartActivity"
+    android:background="@drawable/ll_bg_shape">
+
+    <!--topBar-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/background_up"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收支图表"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+    <!--controlBar-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="#F5F5F5">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/arrow_left"
+                android:layout_width="28dp"
+                android:layout_height="48dp"
+                android:padding="7dp"
+                android:src="@drawable/arrow_left_brown"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/arrow_left"
+                android:padding="5dp"
+                android:textSize="16sp"
+                android:gravity="center"
+                style="@style/Text_subtitle_frag"
+                />
+
+            <ImageView
+                android:id="@+id/arrow_right"
+                android:layout_width="28dp"
+                android:layout_height="48dp"
+                android:padding="7dp"
+                android:src="@drawable/arraw_right_brown"
+                android:layout_marginRight="10dp"/>
+        </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:id="@+id/tabs"
+            app:tabSelectedTextColor = "#FF7F24"
+            app:tabTextColor = "#4000"
+            app:tabIndicatorColor="#FF7F24"
+            app:tabIndicatorHeight="2dp"
+
+            />
+    </LinearLayout>
+
+    <!--decorationLine-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#CDC8B1"/>
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+</LinearLayout>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:background="@drawable/background1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <!--上部分-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_up"
+                android:orientation="horizontal"
+                android:background="@drawable/background_up"
+                android:padding="15dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="vertical"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/bg_list_title_main"
+                            android:alpha="0.15" />
+
+                        <TextView
+                            android:id="@+id/tv_month_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            style="@style/Text_title_big_main"
+                            android:text="4"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_year_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/tv_month_title"
+                            style="@style/Text_title_small_main"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="/ 2016"/>
+                    </RelativeLayout>
+
+                    <com.exercise.yxty.easyaccount.view.ListItemUP
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/income_month"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#2fff"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp" />
+
+                    <com.exercise.yxty.easyaccount.view.ListItemUP
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/expend_month"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#2fff"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp" />
+
+                    <com.exercise.yxty.easyaccount.view.ListItemUP
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/balance_month"/>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="18dp"
+                    android:layout_weight="2"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/bg_budget_main">
+
+                    <ImageView
+                        android:id="@+id/iv_budget_balance"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/budget_progress_shape" />
+
+                </FrameLayout>
+            </LinearLayout>
+
+            <!--中部分——按钮-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/bt_addBill"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    style="@style/Button_Text"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="快速记账"
+                    android:background="@drawable/btn_click_bg_select2" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#2000"
+                     />
+            </LinearLayout>
+
+
+            <!--下部分-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#fff">
+
+                <com.exercise.yxty.easyaccount.view.ListItemDown
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sum_day"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#2000"
+                    android:layout_alignParentBottom="true" />
+
+                <com.exercise.yxty.easyaccount.view.ListItemDown
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sum_week"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#2000"
+                    android:layout_alignParentBottom="true" />
+
+                <com.exercise.yxty.easyaccount.view.ListItemDown
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sum_mon"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#2000"
+                    android:layout_alignParentBottom="true" />
+
+                <com.exercise.yxty.easyaccount.view.ListItemDown
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sum_year"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#2000"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="70dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+    <!--ToolBar-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/background_up"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/main_nav_arrow_new"
+            android:layout_marginRight="40dp"
+            />
+
+        <com.exercise.yxty.easyaccount.view.MenuItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/icon_graph"
+            android:layout_weight="1"/>
+        <com.exercise.yxty.easyaccount.view.MenuItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/icon_budget"
+            android:layout_weight="1"/>
+        <com.exercise.yxty.easyaccount.view.MenuItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/icon_bill"
+            android:layout_weight="1"/>
+        <com.exercise.yxty.easyaccount.view.MenuItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/icon_account"
+            android:layout_weight="1"
+            android:visibility="gone"/>
+        <com.exercise.yxty.easyaccount.view.MenuItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/icon_more"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.exercise.yxty.easyaccount">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        <!-- 备用页面 -->
+        <!-- 显示主页面 -->
+        <activity
+            android:name=".Activity.MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <!-- 闪屏页面，引导页面 -->
+        <activity
+            android:name=".Activity.SplashActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        >
+        <!-- 添加账单页面 -->
+        <activity
+            android:name=".Activity.AddTransactionActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".Activity.DetailListActivity" />
+        <activity android:name=".Activity.ChartActivity" />
+        <activity android:name=".Activity.InventoryActivity" />
+        <activity android:name=".Activity.BudgetActivity"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,137 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="SplashText">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#afff</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Button_Text">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="Text_list_title_main">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="Text_list_content_main">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Text_title_big_main">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">#FF6347</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Text_title_small_main">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#FFffff</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Text_list_down_title_main">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#b000</item>
+    </style>
+    <style name="Text_list_down_subtitle_main">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#4000</item>
+    </style>
+    <style name="Text_list_down_income_main">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#A52A2A</item>
+    </style>
+    <style name="Text_list_down_expenditure_main">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#00CD00</item>
+    </style>
+    <style name="Text_button_add1">
+        <item name="android:textSize">19sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Text_button_add2">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+    <style name="Text_expenditure_frag">
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">#006400</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Text_income_frag">
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">#8B0000</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Text_trans_frag">
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">#b000</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Text_subtitle_frag">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#4000</item>
+    </style>
+    <style name="Text_title_frag">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#b000</item>
+    </style>
+    <style name="WheelView_style">
+        <item name="com.exercise.yxty.easyaccount:selectedTextSize">20sp</item>
+        <item name="com.exercise.yxty.easyaccount:normalTextSize">20sp</item>
+        <item name="com.exercise.yxty.easyaccount:selectedTextColor">#b000</item>
+        <item name="com.exercise.yxty.easyaccount:normalTextColor">#4000</item>
+        <item name="com.exercise.yxty.easyaccount:noEmpty">true</item>
+        <item name="com.exercise.yxty.easyaccount:lineHeight">2dp</item>
+        <item name="com.exercise.yxty.easyaccount:lineColor">#00bfff</item>
+        <item name="com.exercise.yxty.easyaccount:unitHight">45dp</item>
+        <item name="com.exercise.yxty.easyaccount:itemNumber">5</item>
+    </style>
+    <style name="KeyPad_decimal">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">#b000</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="KeyPad_operator">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">#bfff</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Text_month_detail_list">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">#b000</item>
+    </style>
+    <style name="Text_fee_detail_list">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#b000</item>
+    </style>
+    <style name="Text_expend_detail_list">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#006400</item>
+    </style>
+    <style name="Text_income_detail_list">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#8B0000</item>
+    </style>
+
+</resources>

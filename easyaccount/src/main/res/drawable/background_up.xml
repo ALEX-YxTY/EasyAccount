@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/repeat_bg"
+    android:dither="true"
+    android:tileMode="repeat"
+
+ />
+
+    <!--dither ———— 抖动效果-->
+    <!--tileMode ———— 平铺模式-->
