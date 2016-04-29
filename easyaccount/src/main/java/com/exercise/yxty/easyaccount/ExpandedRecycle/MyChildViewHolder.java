@@ -1,6 +1,7 @@
 package com.exercise.yxty.easyaccount.ExpandedRecycle;
 
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
@@ -11,11 +12,13 @@ import com.exercise.yxty.easyaccount.R;
  */
 public class MyChildViewHolder extends ChildViewHolder {
 
+    public RelativeLayout rlMain;
+
     private TextView tvDayOfMonth,tvDayOfWeek,tvSubtype,tvDesc,tvFee;
 
     public MyChildViewHolder(View itemView) {
         super(itemView);
-
+        rlMain = (RelativeLayout) itemView.findViewById(R.id.rl_main);
         tvDayOfMonth = (TextView) itemView.findViewById(R.id.day_of_month);
         tvDayOfWeek = (TextView) itemView.findViewById(R.id.day_of_week);
         tvSubtype = (TextView) itemView.findViewById(R.id.subtitle);

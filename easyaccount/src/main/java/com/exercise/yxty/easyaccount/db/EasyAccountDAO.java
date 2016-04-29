@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.exercise.yxty.easyaccount.ExpandedRecycle.MyChildObject;
 import com.exercise.yxty.easyaccount.Utils.DateUtil;
 import com.exercise.yxty.easyaccount.Utils.DecimalFormatUtil;
+import com.exercise.yxty.easyaccount.beans.BillBean;
 import com.exercise.yxty.easyaccount.beans.BudgetBean;
 import com.exercise.yxty.easyaccount.beans.DateBean;
 
@@ -80,6 +81,28 @@ public class EasyAccountDAO {
         long id = db.insert(table, null, values);
         db.close();
         if (id > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean modifyBill(int dateBefore, ContentValues values) {
+        db = helper.getWritableDatabase();
+        int number = db.update("TABLE_BILL", values, "DATE = ?", new String[]{dateBefore + ""});
+        db.close();
+        if (number > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean deleteBill(int dateBefore) {
+        db = helper.getWritableDatabase();
+        int row = db.delete("TABLE_BILL", "DATE = ?", new String[]{dateBefore + ""});
+        db.close();
+        if (row > 0) {
             return true;
         } else {
             return false;
@@ -197,23 +220,45 @@ public class EasyAccountDAO {
             types[0] = cursor.getInt(cursor.getColumnIndex("TYPE"));
             types[1] = cursor.getInt(cursor.getColumnIndex("SUBTYPE"));
             //根据收支获取响应表单名
-            String table = inOrOut == 0 ? "TABLE_INCOME_SUBTYPE" : "TABLE_EXPENDITURE_SUBTYPE";
-            Cursor typeCursor = db.query(table, new String[]{"NAME"}, "ID = ? AND PARENT_TYPE_ID = ?",
-                    new String[]{types[1] + "", types[0] + ""}, null, null, null);
-            if (typeCursor.moveToFirst()) {
-                subtype = typeCursor.getString(0);
-            }
+            if (inOrOut < 2) {
+                String table = "";
+                switch (inOrOut) {
+                    case 0:
+                        table = "TABLE_INCOME_SUBTYPE";
+                        break;
+                    case 1:
+                        table = "TABLE_EXPENDITURE_SUBTYPE";
+                        break;
+                    default:
+                        break;
+                }
+                Cursor typeCursor = db.query(table, new String[]{"NAME"}, "ID = ? AND PARENT_TYPE_ID = ?",
+                        new String[]{types[1] + "", types[0] + ""}, null, null, null);
+                if (typeCursor.moveToFirst()) {
+                    subtype = typeCursor.getString(0);
+                }
+                typeCursor.close();
+            } else {
+                Cursor accountCursor1 = db.query("TABLE_ACCOUNT", new String[]{"NAME"}, "ID = ?",
+                        new String[]{types[0] + ""}, null, null, null);
+                accountCursor1.moveToFirst();
+                String accountFrom = accountCursor1.getString(0);
+                Cursor accountCursor2 = db.query("TABLE_ACCOUNT", new String[]{"NAME"}, "ID = ?",
+                        new String[]{types[1] + ""}, null, null, null);
+                accountCursor2.moveToFirst();
+                subtype = accountFrom + " 转至 " + accountCursor2.getString(0);
 
+                accountCursor1.close();
+                accountCursor2.close();
+            }
             childObject.setDayOfMonth(DateUtil.formatString(calendar.get(Calendar.DAY_OF_MONTH)));
             childObject.setDayOfWeek(DateUtil.getDayFromInt(calendar.get(Calendar.DAY_OF_WEEK)));
             childObject.setDesc(cursor.getString(cursor.getColumnIndex("DESC")));
             childObject.setInOrOut(inOrOut);
             childObject.setSubType(subtype);
-            childObject.setFee(cursor.getString(cursor.getColumnIndex("FEE")));
+            childObject.setFee(cursor.getDouble(cursor.getColumnIndex("FEE")));
             childObject.setType(types[0]);
-            childObject.setAccount(cursor.getInt(cursor.getColumnIndex("ACCOUNT_ID")));
-            childObject.setProject(cursor.getInt(cursor.getColumnIndex("PROJECT")));
-            childObject.setProject(cursor.getInt(cursor.getColumnIndex("STORE")));
+            childObject.setDate(cursor.getString(cursor.getColumnIndex("DATE")));
 
             childObjectlist.add(childObject);
         }
@@ -247,11 +292,36 @@ public class EasyAccountDAO {
             types[0] = cursor.getInt(cursor.getColumnIndex("TYPE"));
             types[1] = cursor.getInt(cursor.getColumnIndex("SUBTYPE"));
             //根据收支获取响应表单名
-            String table = inOrOut == 0 ? "TABLE_INCOME_SUBTYPE" : "TABLE_EXPENDITURE_SUBTYPE";
-            Cursor typeCursor = db.query(table, new String[]{"NAME"}, "ID = ? AND PARENT_TYPE_ID = ?",
-                    new String[]{types[1] + "", types[0] + ""}, null, null, null);
-            if (typeCursor.moveToFirst()) {
-                subtype = typeCursor.getString(0);
+            if (inOrOut < 2) {
+                String table = "";
+                switch (inOrOut) {
+                    case 0:
+                        table = "TABLE_INCOME_SUBTYPE";
+                        break;
+                    case 1:
+                        table = "TABLE_EXPENDITURE_SUBTYPE";
+                        break;
+                    default:
+                        break;
+                }
+                Cursor typeCursor = db.query(table, new String[]{"NAME"}, "ID = ? AND PARENT_TYPE_ID = ?",
+                        new String[]{types[1] + "", types[0] + ""}, null, null, null);
+                if (typeCursor.moveToFirst()) {
+                    subtype = typeCursor.getString(0);
+                }
+                typeCursor.close();
+            } else {
+                Cursor accountCursor1 = db.query("TABLE_ACCOUNT", new String[]{"NAME"}, "ID = ?",
+                        new String[]{types[0] + ""}, null, null, null);
+                accountCursor1.moveToFirst();
+                String accountFrom = accountCursor1.getString(0);
+                Cursor accountCursor2 = db.query("TABLE_ACCOUNT", new String[]{"NAME"}, "ID = ?",
+                        new String[]{types[1] + ""}, null, null, null);
+                accountCursor2.moveToFirst();
+                subtype = accountFrom + " 转至 " + accountCursor2.getString(0);
+
+                accountCursor1.close();
+                accountCursor2.close();
             }
 
             childObject.setDayOfMonth(DateUtil.formatString(calendar.get(Calendar.DAY_OF_MONTH)));
@@ -259,11 +329,9 @@ public class EasyAccountDAO {
             childObject.setDesc(cursor.getString(cursor.getColumnIndex("DESC")));
             childObject.setInOrOut(inOrOut);
             childObject.setSubType(subtype);
-            childObject.setFee(cursor.getString(cursor.getColumnIndex("FEE")));
+            childObject.setFee(cursor.getDouble(cursor.getColumnIndex("FEE")));
             childObject.setType(types[0]);
-            childObject.setAccount(cursor.getInt(cursor.getColumnIndex("ACCOUNT_ID")));
-            childObject.setProject(cursor.getInt(cursor.getColumnIndex("PROJECT")));
-            childObject.setProject(cursor.getInt(cursor.getColumnIndex("STORE")));
+            childObject.setDate(cursor.getString(cursor.getColumnIndex("DATE")));
 
             childObjectlist.add(childObject);
         }
@@ -379,4 +447,39 @@ public class EasyAccountDAO {
         db.close();
         return lines;
     }
+
+    public List<BillBean> getBillBean(String date) {
+        List<BillBean> billBeans = new ArrayList<>();
+        db = helper.getReadableDatabase();
+        Cursor cursor = db.query("TABLE_BILL", null, "DATE = ?", new String[]{date}, null, null, null);
+        while (cursor.moveToNext()) {
+            BillBean billBean = new BillBean();
+            billBean.setDate(cursor.getInt(cursor.getColumnIndex("DATE")));
+            billBean.setIn_out(cursor.getInt(cursor.getColumnIndex("IN_OUT")));
+            billBean.setFee(cursor.getDouble(cursor.getColumnIndex("FEE")));
+            billBean.setType(cursor.getInt(cursor.getColumnIndex("TYPE")));
+            billBean.setSubtype(cursor.getInt(cursor.getColumnIndex("SUBTYPE")));
+            billBean.setDesc(cursor.getString(cursor.getColumnIndex("DESC")));
+            billBean.setAccount(cursor.getInt(cursor.getColumnIndex("ACCOUNT_ID")));
+            billBean.setStore(cursor.getInt(cursor.getColumnIndex("STORE")));
+            billBean.setProject(cursor.getInt(cursor.getColumnIndex("PROJECT")));
+            billBeans.add(billBean);
+        }
+        cursor.close();
+        db.close();
+        return billBeans;
+    }
+
+    public String getTypeAtPosition(String table, int select) {
+        String name = "";
+        db = helper.getReadableDatabase();
+        Cursor query = db.query(table, new String[]{"NAME"}, "ID = ?", new String[]{select + ""}, null, null, null);
+        if (query.moveToFirst()) {
+            name = query.getString(0);
+        }
+        query.close();
+        db.close();
+        return name;
+    }
+
 }

@@ -1,19 +1,15 @@
 package com.exercise.yxty.easyaccount.Fragment;
 
-import android.app.DatePickerDialog;
 import android.content.ContentValues;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.exercise.yxty.easyaccount.R;
-import com.exercise.yxty.easyaccount.Utils.DecimalFormatUtil;
 import com.exercise.yxty.easyaccount.view.WheelView;
 
 import java.util.Calendar;
@@ -24,7 +20,7 @@ import java.util.Calendar;
 public class ExpenseFragment extends BaseFragment implements View.OnClickListener{
 
     TextView tvAccount,tvPro,tvStore;
-    Button btDate,btStore,btProject;
+    Button btStore,btProject;
     ImageView storeCancel,proCancel;
     RelativeLayout rlPro,rlStore;
     LinearLayout llAccount;
@@ -73,13 +69,6 @@ public class ExpenseFragment extends BaseFragment implements View.OnClickListene
         storeCancel.setOnClickListener(this);
         proCancel.setOnClickListener(this);
 
-        btDate = (Button) view.findViewById(R.id.bt_date);
-
-        calendar = Calendar.getInstance();
-        cloneCalendar = (Calendar) calendar.clone();
-        btDate.setText(showDate(calendar));
-        btDate.setOnClickListener(this);
-
         TextView tvFocus = (TextView) view.findViewById(R.id.tv_focus);
         tvFocus.requestFocus();
     }
@@ -107,12 +96,8 @@ public class ExpenseFragment extends BaseFragment implements View.OnClickListene
                     @Override
                     public void endSelect(int id, String text) {
                         selectType = typeId.get(id);
-                        Log.i("test", "id = " + selectType);
                         dao.querySub("TABLE_EXPENDITURE_SUBTYPE", subId, subtype, selectType);        //重新获取subtype和id
-                        for (int i = 0; i < subId.size(); i++) {
-                            Log.i("test", "subtype:" + subtype.get(i) + ", subId:" + subId.get(i));
-                        }
-                        Log.i("test", "selectSubtype:" + selectSubtype);
+
                         //重设默认的selectSubType数值，防止subType未做选择直接使用default值
                         selectSubtype = subId.get(0);
                         tvType.setText(text);                                   //设置type和subtype显示
@@ -121,10 +106,7 @@ public class ExpenseFragment extends BaseFragment implements View.OnClickListene
                         wlvSub.resetData(subtype);                              //重设wheel_sub数据
                         wlvSub.setDefault(0);                                   //设置默认显示项
 
-
-                        Log.i("test", "selectSubtype:" + selectSubtype);
-
-//                      Log.i("test", subtype.toString());
+//                        Log.i("test", "selectSubtype:" + selectSubtype);
                     }
 
                     @Override
@@ -137,7 +119,7 @@ public class ExpenseFragment extends BaseFragment implements View.OnClickListene
                     public void endSelect(int id, String text) {
                         selectSubtype = subId.get(id);
                         tvSubtype.setText(text);
-                      Log.i("test", "typeid + subtypeId =" + selectType + "," + selectSubtype);
+//                      Log.i("test", "typeid + subtypeId =" + selectType + "," + selectSubtype);
                     }
 
                     @Override
@@ -216,16 +198,6 @@ public class ExpenseFragment extends BaseFragment implements View.OnClickListene
                 rlPro.setVisibility(View.GONE);
                 btProject.setVisibility(View.VISIBLE);
                 break;
-            case R.id.bt_date:
-                this.showDatePicker(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        calendar.set(year, monthOfYear, dayOfMonth);
-                        btDate.setText(showDate(calendar));
-                    }
-                });
-
-                break;
             default:
                 break;
         }
@@ -239,7 +211,7 @@ public class ExpenseFragment extends BaseFragment implements View.OnClickListene
         } else {
             ContentValues values = new ContentValues();
             values.put("IN_OUT",in_out);
-            values.put("FEE", DecimalFormatUtil.decimalFormat(fee));
+            values.put("FEE", fee);
             values.put("DATE", calendar.getTimeInMillis() / 1000);
             values.put("TYPE", selectType);
             values.put("SUBTYPE", selectSubtype);
@@ -252,6 +224,42 @@ public class ExpenseFragment extends BaseFragment implements View.OnClickListene
                 values.put("PROJECT", selectPro);
             }
             return (dao.addBills("TABLE_BILL", values));
+        }
+    }
+
+    @Override
+    protected void refreshTypeAndAccount() {
+        tvType.setText(dao.getTypeAtPosition("TABLE_EXPENDITURE_TYPE", selectType));
+        tvSubtype.setText(dao.getTypeAtPosition("TABLE_EXPENDITURE_SUBTYPE", selectSubtype));
+        tvAccount.setText(dao.getTypeAtPosition("TABLE_ACCOUNT", selectAccount));
+    }
+
+    @Override
+    public void modify() {
+        if (fee <= 0) {
+            ShowErrorToast();
+        } else {
+            ContentValues values = new ContentValues();
+            values.put("IN_OUT",in_out);
+            values.put("FEE", fee);
+            values.put("DATE", calendar.getTimeInMillis() / 1000);
+            values.put("TYPE", selectType);
+            values.put("SUBTYPE", selectSubtype);
+            values.put("DESC", edDesc.getText().toString());
+            values.put("ACCOUNT_ID", selectAccount);
+            if (selectStore > 0) {
+                values.put("STORE", selectStore);
+            }
+            if (selectPro > 0) {
+                values.put("PROJECT", selectPro);
+            }
+            if (dao.modifyBill(dateBefore, values)) {
+                ShowModifySuccessToast();
+                getActivity().setResult(RESULT_SUCCESS);
+                getActivity().finish();
+            } else {
+                ShowModifyFailedToast();
+            }
         }
     }
 

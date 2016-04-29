@@ -1,13 +1,17 @@
 package com.exercise.yxty.easyaccount.ExpandedRecycle;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
+import com.exercise.yxty.easyaccount.Activity.EditActivity;
 import com.exercise.yxty.easyaccount.R;
+import com.exercise.yxty.easyaccount.Utils.DecimalFormatUtil;
 
 import java.util.List;
 
@@ -53,13 +57,28 @@ public class MyRecycleAdapter extends ExpandableRecyclerAdapter<MyParentViewHold
     @Override
     public void onBindChildViewHolder(MyChildViewHolder myChildViewHolder, int i, Object o) {
         MyChildObject childObject = (MyChildObject) o;
-        int color = childObject.getInOrOut() > 0 ? R.color.expend : R.color.income;
+        int color = R.color.transfer;
+        if (childObject.getInOrOut() < 2) {
+            color = childObject.getInOrOut() > 0 ? R.color.expend : R.color.income;
+        }
+        final String date = childObject.getDate();
+        final double fee = childObject.getFee();
         myChildViewHolder.setTvFeeTextColor(context.getResources().getColor(color));
-        myChildViewHolder.setTvFee("¥ " + childObject.getFee());
+        myChildViewHolder.setTvFee("¥ " + DecimalFormatUtil.decimalFormat(fee));
         myChildViewHolder.setTvDayOfMonth(childObject.getDayOfMonth());
         myChildViewHolder.setTvDayOfWeek(childObject.getDayOfWeek());
         myChildViewHolder.setTvDesc(childObject.getDesc());
         myChildViewHolder.setTvSubtype(childObject.getSubType());
+
+        myChildViewHolder.rlMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EditActivity.class);
+                intent.putExtra("DATE", date);
+                Activity activity = (Activity) context;
+                activity.startActivityForResult(intent, 1);
+            }
+        });
     }
 
 }

@@ -1,11 +1,8 @@
 package com.exercise.yxty.easyaccount.Fragment;
 
-import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.DatePicker;
 
 import com.exercise.yxty.easyaccount.R;
 import com.exercise.yxty.easyaccount.view.WheelView;
@@ -17,7 +14,7 @@ import java.util.Calendar;
  */
 public class TransFragment  extends BaseFragment implements View.OnClickListener {
 
-    Button btDate;
+    final int in_out = 2;  //1——支出  0——收入 2-转账
 
     public TransFragment() {
         // Required empty public constructor
@@ -39,13 +36,10 @@ public class TransFragment  extends BaseFragment implements View.OnClickListener
         llDesc.setOnClickListener(this);
 //        view.findViewById(R.id.ll_desc).setOnClickListener(this);
 //        edDesc.setOnClickListener(this);
-
-        btDate = (Button) view.findViewById(R.id.bt_date);
-
-        calendar = Calendar.getInstance();
-        cloneCalendar = (Calendar) calendar.clone();
-        btDate.setText(showDate(calendar));
-        btDate.setOnClickListener(this);
+        //Transfer页面初始两个type不一致，所以subType+1
+        if (!isEdit) {
+            selectSubtype = 2;
+        }
     }
 
     @Override
@@ -72,7 +66,6 @@ public class TransFragment  extends BaseFragment implements View.OnClickListener
 
                             @Override
                             public void selecting(int id, String text) {
-//                Log.i("test", "id = " + id);
                                 selectType = typeId.get(id);
                                 tvType.setText(text);                                   //设置type和subtype显示
                             }
@@ -99,16 +92,6 @@ public class TransFragment  extends BaseFragment implements View.OnClickListener
                 InputMethodManager imm2 = (InputMethodManager) edDesc.getContext().getSystemService(getActivity().INPUT_METHOD_SERVICE);
                 imm2.showSoftInput(edDesc, InputMethodManager.SHOW_FORCED);
                 break;
-            case R.id.bt_date:
-                this.showDatePicker(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        calendar.set(year, monthOfYear, dayOfMonth);
-                        btDate.setText(showDate(calendar));
-                    }
-                });
-
-                break;
             default:
                 break;
         }
@@ -122,11 +105,41 @@ public class TransFragment  extends BaseFragment implements View.OnClickListener
         } else {
             ContentValues values = new ContentValues();
             values.put("FEE", fee);
+            values.put("IN_OUT",in_out);
             values.put("DATE", calendar.getTimeInMillis() / 1000);
-            values.put("ACCOUNT_FROM", selectType);
-            values.put("ACCOUNT_TO", selectSubtype);
+            values.put("TYPE", selectType);
+            values.put("SUBTYPE", selectSubtype);
             values.put("DESC", edDesc.getText().toString());
-            return (dao.addBills("TABLE_TRANSFER", values));
+            return (dao.addBills("TABLE_BILL", values));
+        }
+    }
+
+    @Override
+    protected void refreshTypeAndAccount() {
+        tvType.setText(dao.getTypeAtPosition("TABLE_ACCOUNT", selectType));
+        tvSubtype.setText(dao.getTypeAtPosition("TABLE_ACCOUNT", selectSubtype));
+    }
+
+    @Override
+    public void modify() {
+        if (fee <= 0) {
+            ShowErrorToast();
+        } else {
+            ContentValues values = new ContentValues();
+            values.put("IN_OUT", in_out);
+            values.put("FEE", fee);
+            values.put("DATE", calendar.getTimeInMillis() / 1000);
+            values.put("TYPE", selectType);
+            values.put("SUBTYPE", selectSubtype);
+            values.put("DESC", edDesc.getText().toString());
+
+            if (dao.modifyBill(dateBefore, values)) {
+                ShowModifySuccessToast();
+                getActivity().setResult(RESULT_SUCCESS);
+                getActivity().finish();
+            } else {
+                ShowModifyFailedToast();
+            }
         }
     }
 
@@ -146,4 +159,5 @@ public class TransFragment  extends BaseFragment implements View.OnClickListener
         calendar.set(Calendar.SECOND, now.get(Calendar.SECOND));
         cloneCalendar = (Calendar) calendar.clone();
     }
+
 }

@@ -1,5 +1,6 @@
 package com.exercise.yxty.easyaccount.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -93,6 +94,13 @@ public class DetailListActivity extends AppCompatActivity implements View.OnClic
         initData();
     }
 
+    //得到当前年，得到今年各月的时间区间
+    private void initDate() {
+        calendarNow = Calendar.getInstance();
+        year = calendarNow.get(Calendar.YEAR);
+        dao = new EasyAccountDAO(this);
+    }
+
     private void initUI() {
         setContentView(R.layout.activity_detail_list);
         findViewById(R.id.iv_arrow).setOnClickListener(this);   //返回按钮
@@ -107,14 +115,6 @@ public class DetailListActivity extends AppCompatActivity implements View.OnClic
         recyclerView = (RecyclerView) findViewById(R.id.recycleview);   //RecycleView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-    }
-
-    //得到当前年，得到今年各月的时间区间
-    private void initDate() {
-        calendarNow = Calendar.getInstance();
-        year = calendarNow.get(Calendar.YEAR);
-        dao = new EasyAccountDAO(this);
 
     }
 
@@ -264,5 +264,13 @@ public class DetailListActivity extends AppCompatActivity implements View.OnClic
     private int getThisYear() {
         Calendar calendar = Calendar.getInstance();
         return calendar.get(Calendar.YEAR);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 1) {
+            initData();
+        }
     }
 }

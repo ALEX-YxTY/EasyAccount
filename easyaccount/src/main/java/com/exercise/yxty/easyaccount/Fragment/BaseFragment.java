@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,7 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.exercise.yxty.easyaccount.Activity.AddTransactionActivity;
+import com.exercise.yxty.easyaccount.Activity.EditActivity;
 import com.exercise.yxty.easyaccount.R;
+import com.exercise.yxty.easyaccount.Utils.DecimalFormatUtil;
+import com.exercise.yxty.easyaccount.beans.BillBean;
 import com.exercise.yxty.easyaccount.db.EasyAccountDAO;
 import com.exercise.yxty.easyaccount.view.WheelView;
 import com.exercise.yxty.easyaccount.view.digit_keypad;
@@ -41,12 +47,16 @@ import java.util.Calendar;
  * 公用方法（弹出wheelview选择框）实现
  * 以及与Activity的接口方法（save和onMore）
  */
-public abstract class BaseFragment extends Fragment implements AddTransactionActivity.SaveAndOneMoreInterface {
+public abstract class BaseFragment extends Fragment implements AddTransactionActivity.SaveAndOneMoreInterface,EditActivity.ModifyAndDeleteListener {
+
+    final int RESULT_SUCCESS = 1;
 
     TextView tvType, tvSubtype, tvFee;
     EditText edDesc;
     LinearLayout llDesc;
     ImageView ivOk;
+
+    Button btDate;
 
     PopupWindow mPop;
     View popView;
@@ -61,7 +71,6 @@ public abstract class BaseFragment extends Fragment implements AddTransactionAct
 
     //屏幕高
     int windowHeight;
-
     //选中的支出类别、子类别
     int selectType, selectSubtype;
     //最终金额
@@ -70,6 +79,11 @@ public abstract class BaseFragment extends Fragment implements AddTransactionAct
     int selectAccount, selectStore, selectPro;
     //最终的日期
     Calendar calendar, cloneCalendar;
+    //用来储存修改之前的日期，以便dao查找更新
+    int dateBefore = 0;
+
+    boolean isEdit = false;
+    String desc;
 
     EasyAccountDAO dao;
     //数字格式处理工具
@@ -108,6 +122,19 @@ public abstract class BaseFragment extends Fragment implements AddTransactionAct
     }
 
     public void initUI(View view) {
+        btDate = (Button) view.findViewById(R.id.bt_date);
+        btDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        calendar.set(year, monthOfYear, dayOfMonth);
+                        btDate.setText(showDate(calendar));
+                    }
+                });
+            }
+        });
         tvFee = (TextView) view.findViewById(R.id.tv_fee);
         tvType = (TextView) view.findViewById(R.id.tv_type);
         tvSubtype = (TextView) view.findViewById(R.id.tv_subtype);
@@ -124,6 +151,7 @@ public abstract class BaseFragment extends Fragment implements AddTransactionAct
             }
         });
         llDesc = (LinearLayout) view.findViewById(R.id.ll_desc);
+
     }
 
     //initData
@@ -132,11 +160,6 @@ public abstract class BaseFragment extends Fragment implements AddTransactionAct
         super.onActivityCreated(savedInstanceState);
         //initData
         dao = new EasyAccountDAO(getContext());
-        selectType = 1;     //默认食
-        selectSubtype = 1;  //默认早午晚餐
-        selectAccount = 1;  //默认现金
-        selectPro = -1;     //默认不选为空
-        selectStore = -1;   //默认不选为空
 
         type = new ArrayList<>();
         subtype = new ArrayList<>();
@@ -150,13 +173,30 @@ public abstract class BaseFragment extends Fragment implements AddTransactionAct
         //SimpleDateFormat线程不安全，但是单线程中使用时可以只建立一个对象，方便复用
         //如果要在多线程中使用，可以加上synchronize修饰
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        /*
+            如果为编辑模式，则在initData前已经初始化了数据，此处loadUI
+            如果为普通模式，此处进行数据初始化
+
+         */
+        if (isEdit) {
+            refreshUI();
+        } else {
+            selectType = 1;     //默认食
+            selectSubtype = 1;  //默认早午晚餐
+            selectAccount = 1;  //默认现金
+            selectPro = -1;     //默认不选为空
+            selectStore = -1;   //默认不选为空
+            calendar = Calendar.getInstance();
+            cloneCalendar = (Calendar) calendar.clone();
+            btDate.setText(showDate(calendar));
+        }
     }
 
     @Override
     public void save() {
         if (saveBill()) {
             Toast.makeText(getContext(),"添加成功",Toast.LENGTH_SHORT).show();
-            getActivity().setResult(1);
             getActivity().finish();
         }
     }
@@ -169,6 +209,17 @@ public abstract class BaseFragment extends Fragment implements AddTransactionAct
             edDesc.clearFocus();
             InputMethodManager imm2 = (InputMethodManager) edDesc.getContext().getSystemService(getActivity().INPUT_METHOD_SERVICE);
             imm2.showSoftInput(edDesc, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        }
+    }
+
+    @Override
+    public void delete() {
+        if (dao.deleteBill(dateBefore)) {
+            ShowDeleteSuccessToast();
+            getActivity().setResult(RESULT_SUCCESS);
+            getActivity().finish();
+        } else {
+            ShowDeleteErrorToast();
         }
     }
 
@@ -468,5 +519,50 @@ public abstract class BaseFragment extends Fragment implements AddTransactionAct
     public void ShowErrorToast() {
         Toast.makeText(getContext(),"输入数据不合法",Toast.LENGTH_SHORT).show();
     }
+
+    public void ShowModifySuccessToast() {
+        Toast.makeText(getContext(),"修改数据成功",Toast.LENGTH_SHORT).show();
+    }
+
+    public void ShowModifyFailedToast() {
+        Toast.makeText(getContext(),"修改数据失败",Toast.LENGTH_SHORT).show();
+    }
+
+    private void ShowDeleteErrorToast() {
+        Toast.makeText(getContext(),"删除数据成功",Toast.LENGTH_SHORT).show();
+    }
+
+    protected void ShowDeleteSuccessToast() {
+        Toast.makeText(getContext(),"删除数据失败",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setData(BillBean billBean) {
+        isEdit = true;
+        dateBefore = billBean.getDate();
+        calendar = Calendar.getInstance();
+        cloneCalendar = (Calendar) calendar.clone();
+        calendar.setTimeInMillis(dateBefore * 1000l);
+        fee = billBean.getFee();
+        selectType = billBean.getType();
+        selectSubtype = billBean.getSubtype();
+        selectAccount = billBean.getAccount();
+        selectPro = billBean.getProject();
+        selectStore = billBean.getStore();
+        desc = billBean.getDesc();
+        Log.i("test", "setData" + billBean.toString());
+    }
+
+    protected void refreshUI() {
+        tvFee.setText(DecimalFormatUtil.decimalFormat(fee));
+        edDesc.setText(desc);
+        btDate.setText(showDate(calendar));
+
+        refreshTypeAndAccount();
+    }
+
+    protected abstract void refreshTypeAndAccount();
+
+
 
 }

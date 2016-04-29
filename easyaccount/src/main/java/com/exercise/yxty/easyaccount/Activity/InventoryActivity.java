@@ -17,6 +17,7 @@ import com.exercise.yxty.easyaccount.ExpandedRecycle.MyChildObject;
 import com.exercise.yxty.easyaccount.ExpandedRecycle.MyChildViewHolder;
 import com.exercise.yxty.easyaccount.R;
 import com.exercise.yxty.easyaccount.Utils.DateUtil;
+import com.exercise.yxty.easyaccount.Utils.DecimalFormatUtil;
 import com.exercise.yxty.easyaccount.db.EasyAccountDAO;
 
 import java.util.Calendar;
@@ -83,6 +84,11 @@ public class InventoryActivity extends AppCompatActivity {
         dao = new EasyAccountDAO(this);
         timeArea = new int[2];
         DateUtil.getThisMonthNoReturn(calendar, timeArea);
+        getChilds();
+
+    }
+
+    public void getChilds() {
         new Thread(){
             @Override
             public void run() {
@@ -105,19 +111,42 @@ public class InventoryActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(MyChildViewHolder holder, int position) {
-            MyChildObject childObject = (MyChildObject) childs.get(position);
-            int color = childObject.getInOrOut() > 0 ? R.color.expend : R.color.income;
+            final MyChildObject childObject = (MyChildObject) childs.get(position);
+            int color = R.color.transfer;
+            if (childObject.getInOrOut() < 2) {
+                color = childObject.getInOrOut() > 0 ? R.color.expend : R.color.income;
+            }
+
+            final String date = childObject.getDate();
+            final double fee = childObject.getFee();
             holder.setTvFeeTextColor(InventoryActivity.this.getResources().getColor(color));
-            holder.setTvFee("¥ "+ childObject.getFee());
+            holder.setTvFee("¥ " + DecimalFormatUtil.decimalFormat(fee));
             holder.setTvSubtype(childObject.getSubType());
             holder.setTvDesc(childObject.getDesc());
             holder.setTvDayOfWeek(childObject.getDayOfWeek());
             holder.setTvDayOfMonth(childObject.getDayOfMonth());
+
+            holder.rlMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(InventoryActivity.this, EditActivity.class);
+                    intent.putExtra("DATE", date);
+                    startActivityForResult(intent, 1);
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
             return childs.size();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 1) {
+            getChilds();
         }
     }
 }

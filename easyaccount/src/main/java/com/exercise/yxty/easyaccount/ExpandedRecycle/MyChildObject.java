@@ -5,9 +5,18 @@ package com.exercise.yxty.easyaccount.ExpandedRecycle;
  */
 public class MyChildObject {
 
-    private String dayOfMonth,dayOfWeek,subType,desc, fee;
+    private String dayOfMonth,dayOfWeek,subType,desc,  date;
+    private double fee;
     private int inOrOut;        // income == 0   expend == 1
-    private int type,account,store,project;
+    private int type;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getDayOfMonth() {
         return dayOfMonth;
@@ -41,11 +50,11 @@ public class MyChildObject {
         this.desc = desc;
     }
 
-    public String getFee() {
+    public double getFee() {
         return fee;
     }
 
-    public void setFee(String fee) {
+    public void setFee(double fee) {
         this.fee = fee;
     }
 
@@ -63,30 +72,6 @@ public class MyChildObject {
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    public int getAccount() {
-        return account;
-    }
-
-    public void setAccount(int account) {
-        this.account = account;
-    }
-
-    public int getStore() {
-        return store;
-    }
-
-    public void setStore(int store) {
-        this.store = store;
-    }
-
-    public int getProject() {
-        return project;
-    }
-
-    public void setProject(int project) {
-        this.project = project;
     }
 
     public MyChildObject() {

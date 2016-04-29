@@ -17,14 +17,13 @@ public class EasyAccountOpenHelper extends SQLiteOpenHelper {
             "TABLE_INCOME_TYPE",
             "TABLE_INCOME_SUBTYPE",
             "TABLE_ACCOUNT",
-            "TABLE_ACCOUNT_TYPE",
-            "TABLE_TRANSFER",
+            "TABLE_ACCOUNT_TYPE",       //未使用，作废
             "TABLE_PROJECT",
             "TABLE_STORE"
     };
     //表中字段名
     private String filedName[][] = new String[][]{
-            //IN_OUT 1——支出，0——收入
+            //IN_OUT 1——支出，0——收入，2——转账
             {"ID","IN_OUT", "FEE", "DATE", "TYPE", "SUBTYPE", "DESC", "ACCOUNT_ID", "PROJECT", "STORE"},
             //expenditureType有budget字段
             {"ID", "NAME", "BUDGET"},
@@ -34,8 +33,6 @@ public class EasyAccountOpenHelper extends SQLiteOpenHelper {
             //account有account_balance字段（账户余额）
             {"ID", "NAME","TYPE","ACCOUNT_BALANCE"},
             {"ID", "NAME"},
-            //内部转账字段
-            {"ID","FEE","DATE","ACCOUNT_FROM","ACCOUNT_TO","DESC"},
             {"ID", "NAME"},
             {"ID", "NAME"}
 
@@ -50,7 +47,6 @@ public class EasyAccountOpenHelper extends SQLiteOpenHelper {
             {"INTEGER PRIMARY KEY AUTOINCREMENT", "TEXT", "INTEGER"},
             {"INTEGER PRIMARY KEY AUTOINCREMENT", "TEXT", "INTEGER","DOUBLE"},
             {"INTEGER PRIMARY KEY AUTOINCREMENT", "TEXT"},
-            {"INTEGER PRIMARY KEY AUTOINCREMENT", "DOUBLE","INTEGER","INTEGER","INTEGER","TEXT"},
             {"INTEGER PRIMARY KEY AUTOINCREMENT", "TEXT"},
             {"INTEGER PRIMARY KEY AUTOINCREMENT", "TEXT"},
 

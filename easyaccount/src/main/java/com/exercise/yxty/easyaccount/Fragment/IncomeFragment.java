@@ -1,11 +1,9 @@
 package com.exercise.yxty.easyaccount.Fragment;
 
-import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,12 +20,12 @@ import java.util.Calendar;
 public class IncomeFragment extends BaseFragment implements View.OnClickListener{
 
     TextView tvAccount,tvPro;
-    Button btDate,btProject;
+    Button btProject;
     ImageView proCancel;
     RelativeLayout rlPro;
     LinearLayout llAccount;
 
-    final int in_out = 0;  //1——支出  0——收入
+    final int in_out = 0;  //1——支出  0——收入 2-转账
 
     public IncomeFragment() {
         // Required empty public constructor
@@ -63,12 +61,7 @@ public class IncomeFragment extends BaseFragment implements View.OnClickListener
         proCancel = (ImageView) view.findViewById(R.id.pro_cancel);
         proCancel.setOnClickListener(this);
 
-        btDate = (Button) view.findViewById(R.id.bt_date);
 
-        calendar = Calendar.getInstance();
-        cloneCalendar = (Calendar) calendar.clone();
-        btDate.setText(showDate(calendar));
-        btDate.setOnClickListener(this);
     }
 
     @Override
@@ -169,16 +162,6 @@ public class IncomeFragment extends BaseFragment implements View.OnClickListener
                 rlPro.setVisibility(View.GONE);
                 btProject.setVisibility(View.VISIBLE);
                 break;
-            case R.id.bt_date:
-                this.showDatePicker(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        calendar.set(year, monthOfYear, dayOfMonth);
-                        btDate.setText(showDate(calendar));
-                    }
-                });
-
-                break;
             default:
                 break;
         }
@@ -191,7 +174,7 @@ public class IncomeFragment extends BaseFragment implements View.OnClickListener
         } else {
             ContentValues values = new ContentValues();
             values.put("IN_OUT",in_out);
-            values.put("FEE", fee);
+            values.put("FEE",fee);
             values.put("DATE", calendar.getTimeInMillis() / 1000);
             values.put("TYPE", selectType);
             values.put("SUBTYPE", selectSubtype);
@@ -201,6 +184,39 @@ public class IncomeFragment extends BaseFragment implements View.OnClickListener
                 values.put("PROJECT", selectPro);
             }
             return (dao.addBills("TABLE_BILL", values));
+        }
+    }
+
+    @Override
+    protected void refreshTypeAndAccount() {
+        tvType.setText(dao.getTypeAtPosition("TABLE_INCOME_TYPE", selectType));
+        tvSubtype.setText(dao.getTypeAtPosition("TABLE_INCOME_SUBTYPE", selectSubtype));
+        tvAccount.setText(dao.getTypeAtPosition("TABLE_ACCOUNT", selectAccount));
+    }
+
+    @Override
+    public void modify() {
+        if (fee <= 0) {
+            ShowErrorToast();
+        } else {
+            ContentValues values = new ContentValues();
+            values.put("IN_OUT",in_out);
+            values.put("FEE", fee);
+            values.put("DATE", calendar.getTimeInMillis() / 1000);
+            values.put("TYPE", selectType);
+            values.put("SUBTYPE", selectSubtype);
+            values.put("DESC", edDesc.getText().toString());
+            values.put("ACCOUNT_ID", selectAccount);
+            if (selectPro > 0) {
+                values.put("PROJECT", selectPro);
+            }
+            if (dao.modifyBill(dateBefore, values)) {
+                ShowModifySuccessToast();
+                getActivity().setResult(RESULT_SUCCESS);
+                getActivity().finish();
+            } else {
+                ShowModifyFailedToast();
+            }
         }
     }
 

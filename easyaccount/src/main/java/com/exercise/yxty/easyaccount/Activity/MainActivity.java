@@ -27,10 +27,6 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private final int ADD_BILL = 2;
-    private final int SAVE_OK = 1;
-    private final int CANCEL = 0;
-
     DrawerLayout mDrawerlayout;
     View menu;
 
@@ -228,6 +224,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 balanceRateNow = rate > 0 ? rate : 0.02f;
                 if (balanceRateNow < 0.3f) {
                     iv_balance.setBackgroundResource(R.drawable.budget_progress_low_shape);
+                } else {
+                    iv_balance.setBackgroundResource(R.drawable.budget_progress_shape);
                 }
             }
         });
@@ -264,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mDrawerlayout.openDrawer(menu);
                 break;
             case R.id.bt_addBill:
-                startActivityForResult(new Intent(this, AddTransactionActivity.class), ADD_BILL);
+                startActivity(new Intent(this, AddTransactionActivity.class));
                 break;
             case R.id.icon_bill:
                 startActivity(new Intent(this, DetailListActivity.class));
@@ -278,6 +276,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra("BUDGET_REMAIN", budgetRemain);
                 startActivity(intent);
                 break;
+            case R.id.expend_month:
+            case R.id.income_month:
+            case R.id.sum_day:
+            case R.id.sum_week:
+            case R.id.sum_mon:
+            case R.id.sum_year:
+                startActivity(new Intent(this, DetailListActivity.class));
+                break;
+            case R.id.balance_month:
+            case R.id.iv_budget_balance:
+                startActivity(new Intent(this, BudgetActivity.class));
+                break;
         }
     }
 
@@ -285,20 +295,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         initData();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
-            case SAVE_OK:
-                //添加新数据成功，刷新显示
-                initData();
-                break;
-            case CANCEL:
-                //取消添加
-                break;
-        }
     }
 
     private void startScaleAnimation(float rate) {

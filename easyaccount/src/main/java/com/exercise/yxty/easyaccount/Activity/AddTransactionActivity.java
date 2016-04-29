@@ -43,6 +43,7 @@ public class AddTransactionActivity extends FragmentActivity implements View.OnC
         setContentView(R.layout.activity_add_transaction);
         tabs = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        findViewById(R.id.iv_arrow).setOnClickListener(this);
 
         btSave = (Button) findViewById(R.id.bt_save);
         btOnMore = (Button) findViewById(R.id.bt_oneMore);
@@ -113,6 +114,9 @@ public class AddTransactionActivity extends FragmentActivity implements View.OnC
             case R.id.bt_oneMore:
                 saveAndOneMoreInterface.oneMore();
                 break;
+            case R.id.iv_arrow:
+                onBackPressed();
+                break;
             default:
                 break;
         }
@@ -121,7 +125,6 @@ public class AddTransactionActivity extends FragmentActivity implements View.OnC
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        setResult(0);
         this.finish();
     }
 
